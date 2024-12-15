@@ -33,4 +33,44 @@ class UpdateMhsViewModel(
         )
     }
 
+    fun validateFields(): Boolean{
+        val event = updateUiState.mahasiswaEvent
+        val errorState = FormErrorState(
+            nim = if (event.nim.isNotEmpty()) null else "NIM tidak boleh kosong",
+            nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
+            jeniskelamin = if (event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
+            alamat = if (event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
+            kelas = if (event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
+            angkatan = if (event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong"
+        )
+
+        updateUiState = updateUiState.copy(isEntryValid = errorState)
+        return  errorState.isValid()
+    }
+    fun updateData(){
+        val currentEvent = updateUiState.mahasiswaEvent
+
+        if (validateFields()){
+            viewModelScope.launch {
+                try{
+                    repositoryMhs.updateMhs(currentEvent.toMahasiswaEntity())
+                    updateUiState = updateUiState.copy(
+                        snackBarMessage = "Data berhasil diupdate",
+                        mahasiswaEvent = MahasiswaEvent(),
+                        isEntryValid = FormErrorState()
+                    )
+                    println("snackBarMessage diatur: ${updateUiState.snackBarMessage}")
+                } catch (e: Exception){
+                    updateUiState = updateUiState.copy(
+                        snackBarMessage = "Data gagal diupdate"
+                    )
+                }
+            }
+        } else{
+            updateUiState = updateUiState.copy(
+                snackBarMessage = "Data gagal diupdate"
+            )
+        }
+    }
+
 }
