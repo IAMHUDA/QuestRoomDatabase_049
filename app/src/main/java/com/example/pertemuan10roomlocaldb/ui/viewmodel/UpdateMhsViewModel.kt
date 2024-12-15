@@ -72,5 +72,8 @@ class UpdateMhsViewModel(
             )
         }
     }
+    fun resetSnackBarMessage(){
+        updateUiState = updateUiState.copy(snackBarMessage = null)
+    }
 
 }
