@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pertemuan10roomlocaldb.data.entity.Mahasiswa
 import com.example.pertemuan10roomlocaldb.repository.RepositoryMhs
+import com.example.pertemuan10roomlocaldb.ui.navigation.DestinasiDetail
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.time.delay
+import kotlinx.coroutines.delay
 
 class DetailMhsViewModel (
     savedStateHandle: SavedStateHandle,
@@ -79,7 +80,7 @@ fun Mahasiswa.toDetailUiEvent(): MahasiswaEvent{
     return MahasiswaEvent(
         nim = nim,
         nama = nama,
-        jenisKelamin = jenisKelamin,
+        jeniskelamin = jenisKelamin,
         alamat = alamat,
         kelas = kelas,
         angkatan = angkatan
