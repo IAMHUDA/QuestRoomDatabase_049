@@ -3,6 +3,7 @@ package com.example.pertemuan10roomlocaldb.ui.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pertemuan10roomlocaldb.data.entity.Mahasiswa
 import com.example.pertemuan10roomlocaldb.repository.RepositoryMhs
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -69,4 +70,18 @@ data class DetailUiState(
 
     val isUiEventNotEmpty: Boolean
         get() = detailUiEvent != MahasiswaEvent()
+}
+
+//DATA CLASS untuk menampung data yang akan ditampilkan di UI
+
+//Memindahkan data dari entity ke UI
+fun Mahasiswa.toDetailUiEvent(): MahasiswaEvent{
+    return MahasiswaEvent(
+        nim = nim,
+        nama = nama,
+        jenisKelamin = jenisKelamin,
+        alamat = alamat,
+        kelas = kelas,
+        angkatan = angkatan
+    )
 }
