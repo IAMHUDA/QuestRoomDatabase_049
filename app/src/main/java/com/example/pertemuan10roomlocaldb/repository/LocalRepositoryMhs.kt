@@ -15,4 +15,10 @@ class LocalRepositoryMhs (
     override fun getAllMhs(): Flow<List<Mahasiswa>> {
         return mahasiswaDao.getAllMahasiswa()
     }
+
+    override fun getMhs(nim: String): Flow<Mahasiswa> {  //mengambil data mahasiswa berdasarkan nim
+        return mahasiswaDao.getMahasiswa(nim)
+    }
+
+
 }
